@@ -11,6 +11,7 @@ namespace MealPlan
         List<Recipe> pool;
         List<Recipe> menu;
         List<bool> pins;
+        Random random;
 
 
         public double AveragePrepTime
@@ -71,6 +72,39 @@ namespace MealPlan
                 }
                 return sum;
             }
+        }
+
+        public bool IsPinned(int index) {
+            if (index < 0 || index >= pins.Count) {
+                return false;
+            }
+            return pins[index];
+        }
+
+        public Recipe GetMeal(int index) {
+            if (index < 0 || index >= pins.Count) {
+                return null;
+            }
+            return menu[index];
+        }
+
+        public void GetNewRandomMenu(int numMeals) {
+            menu = new List<Recipe>(numMeals);
+            pins = new List<bool>(numMeals);
+            List<int> indices = new List<int>( numMeals );
+            for (int i = 0; i < numMeals; i++) {
+                int r = -1;
+                while (r == -1 || indices.Contains(r)) {
+                    r = random.Next( pool.Count - 1 );
+                }
+                menu.Add( pool[r] );
+                pins.Add( false );
+                indices.Add( r );
+            }
+        }
+
+        public void ReshuffleMenu() {
+
         }
     }
 }
