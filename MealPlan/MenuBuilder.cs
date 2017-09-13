@@ -18,6 +18,9 @@ namespace MealPlan
         {
             get
             {
+                if (menu == null || menu.Count == 0) {
+                    return 0.0;
+                }
                 double sum = 0.0;
                 foreach (var meal in menu) {
                     sum += meal.PreparationTime;
@@ -30,6 +33,9 @@ namespace MealPlan
         {
             get
             {
+                if (menu == null || menu.Count == 0) {
+                    return 0.0;
+                }
                 double sum = 0.0;
                 foreach (var meal in menu) {
                     sum += meal.Cost;
@@ -42,6 +48,9 @@ namespace MealPlan
         {
             get
             {
+                if (menu == null || menu.Count == 0) {
+                    return 0.0;
+                }
                 double sum = 0.0;
                 foreach (var meal in menu) {
                     sum += meal.Naughtiness;
@@ -54,6 +63,9 @@ namespace MealPlan
         {
             get
             {
+                if (menu == null || menu.Count == 0) {
+                    return 0.0;
+                }
                 double sum = 0.0;
                 foreach (var meal in menu) {
                     sum += meal.Heaviness;
@@ -82,7 +94,7 @@ namespace MealPlan
         }
 
         public Recipe GetMeal(int index) {
-            if (index < 0 || index >= pins.Count) {
+            if (index < 0 || index >= menu.Count) {
                 return null;
             }
             return menu[index];
@@ -91,20 +103,27 @@ namespace MealPlan
         public void GetNewRandomMenu(int numMeals) {
             menu = new List<Recipe>(numMeals);
             pins = new List<bool>(numMeals);
-            List<int> indices = new List<int>( numMeals );
             for (int i = 0; i < numMeals; i++) {
                 int r = -1;
-                while (r == -1 || indices.Contains(r)) {
+                while (r == -1 || menu.Contains(pool[r])) {
                     r = random.Next( pool.Count - 1 );
                 }
                 menu.Add( pool[r] );
                 pins.Add( false );
-                indices.Add( r );
             }
         }
 
         public void ReshuffleMenu() {
+            for (int i = 0; i < menu.Count; i++) {
+                if (!pins[i]) {
+                    var previous = menu[i];
+                    int r = -1;
+                    while (r == -1 || menu.Contains( pool[r] )) {
+                        r = random.Next( pool.Count - 1 );
+                    }
 
+                }
+            }
         }
     }
 }
