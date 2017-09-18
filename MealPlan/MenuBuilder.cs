@@ -1,4 +1,12 @@
-﻿using System;
+﻿/******************************************************************************
+ * 
+ *  MenuBuilder.cs
+ *  Copyright: Chris Aiken, 2017
+ *  License: LGPL
+ * 
+ *****************************************************************************/
+
+using System;
 using System.Collections.Generic;
 
 namespace MealPlan
@@ -22,7 +30,7 @@ namespace MealPlan
         private Random random;
 
         /// <summary>
-        /// Constructs a new MenuBuilder object with an empty menu
+        /// Constructs a new <c>MenuBuilder</c> object with an empty menu
         /// </summary>
         /// <param name="mealPool">The pool of available meal choices</param>
         public MenuBuilder(List<Meal> mealPool) {
@@ -31,7 +39,7 @@ namespace MealPlan
         }
 
         /// <summary>
-        /// Constructs a new MenuBuilder object and generates a menu
+        /// Constructs a new <c>MenuBuilder</c> object and generates a menu
         /// </summary>
         /// <param name="mealPool">The pool of available meal choices</param>
         /// <param name="numMeals">The number of meals in the menu</param>
@@ -140,7 +148,7 @@ namespace MealPlan
         }
 
         /// <summary>
-        /// Gets the pool of available meal choices
+        /// Gets the pool of available <c>Meal</c> choices
         /// </summary>
         public List<Meal> MealPool
         {
@@ -148,10 +156,10 @@ namespace MealPlan
         }
 
         /// <summary>
-        /// Identifies whether a particular meal is pinned
+        /// Identifies whether a particular <c>Meal</c> is pinned
         /// </summary>
-        /// <param name="index">The index of the meal to check</param>
-        /// <returns>True if pinned, false otherwise</returns>
+        /// <param name="index">The index of the <c>Meal</c> to check</param>
+        /// <returns><c>true</c> if pinned, <c>false</c> otherwise</returns>
         public bool IsPinned(int index) {
             if (index < 0 || pins == null || index >= pins.Count) {
                 return false;
@@ -160,10 +168,10 @@ namespace MealPlan
         }
 
         /// <summary>
-        /// Accesses the meal at the specified index
+        /// Accesses the <c>Meal</c> at the specified index
         /// </summary>
         /// <param name="index">The index to retrieve</param>
-        /// <returns>The requested meal, or null if index is invalid</returns>
+        /// <returns>The requested <c>Meal</c>, or <c>null</c> if index is invalid</returns>
         public Meal GetMeal(int index) {
             if (index < 0 || menu == null || index >= menu.Count) {
                 return null;
@@ -175,14 +183,14 @@ namespace MealPlan
         /// Provides subscript access to the meals in the menu
         /// </summary>
         /// <param name="i">The index to retrieve</param>
-        /// <returns>The requested meal, or null if i is invalid</returns>
+        /// <returns>The requested <c>Meal</c>, or null if i is invalid</returns>
         public Meal this[int i]
         {
             get { return GetMeal( i ); }
         }
 
         /// <summary>
-        /// Pins or unpins the meal at the specified index
+        /// Pins or unpins the <c>Meal</c> at the specified index
         /// </summary>
         /// <param name="index">The index of the meal to pin</param>
         /// <returns>A bool indicating the new pinned state</returns>
@@ -198,7 +206,12 @@ namespace MealPlan
         /// Generates a random menu plan. Clears any prior menu.
         /// </summary>
         /// <param name="numMeals">The number of meals to include</param>
+        /// <exception cref="InvalidOperationException">The selection pool is null or empty.</exception>
         public void GetNewRandomMenu(int numMeals) {
+            if (pool == null || pool.Count == 0) {
+                throw new InvalidOperationException( 
+                    "Meal pool is null or empty" );
+            }
             menu = new List<Meal>(numMeals);
             pins = new List<bool>(numMeals);
             for (int i = 0; i < numMeals; i++) {
@@ -214,8 +227,13 @@ namespace MealPlan
         /// <summary>
         /// Replaces all unpinned meals in the menu with new random selections.
         /// </summary>
+        /// <exception cref="InvalidOperationException">The selection pool is null or empty.</exception>
         public void ReshuffleMenu() {
             if (menu == null) return;
+            if (pool == null || pool.Count == 0) {
+                throw new InvalidOperationException(
+                    "Meal pool is null or empty" );
+            }
             for (int i = 0; i < menu.Count; i++) {
                 if (!pins[i]) {
                     var previous = menu[i];
@@ -229,7 +247,7 @@ namespace MealPlan
         }
 
         /// <summary>
-        /// Replaces the specified meal with a new specified meal. Ignores pins
+        /// Replaces the specified <c>Meal</c> with a new specified <c>Meal</c>. Ignores pins
         /// </summary>
         /// <param name="indexToReplace">The index of the meal to replace</param>
         /// <param name="newMeal">The pool index of the new meal</param>
@@ -245,9 +263,14 @@ namespace MealPlan
         }
 
         /// <summary>
-        /// Adds an additional random meal to the menu
+        /// Adds an additional random <c>Meal</c> to the menu
         /// </summary>
+        /// <exception cref="InvalidOperationException">The selection pool is null or empty.</exception>
         public void AddAnotherMeal() {
+            if (pool == null || pool.Count == 0) {
+                throw new InvalidOperationException(
+                    "Meal pool is null or empty" );
+            }
             int r = -1;
             while (r == -1 || menu.Contains( pool[r] )) {
                 r = random.Next( pool.Count - 1 );
