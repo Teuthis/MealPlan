@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MealPlan
 {
-    class Recipe
+    class Meal
     {
         private string name;
         private string link;

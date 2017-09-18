@@ -9,10 +9,10 @@ namespace MealPlan
     class MenuBuilder {
         
         // Collection of all known recipes/meals
-        private List<Recipe> pool;
+        private List<Meal> pool;
 
         // The current menu
-        private List<Recipe> menu;
+        private List<Meal> menu;
 
         // Parallel collection for menu, allows specific elements
         // to be pinned - pinned items are not replaced in a reshuffle
@@ -25,7 +25,7 @@ namespace MealPlan
         /// Constructs a new MenuBuilder object with an empty menu
         /// </summary>
         /// <param name="mealPool">The pool of available meal choices</param>
-        public MenuBuilder(List<Recipe> mealPool) {
+        public MenuBuilder(List<Meal> mealPool) {
             pool = mealPool;
             random = new Random();
         }
@@ -35,7 +35,7 @@ namespace MealPlan
         /// </summary>
         /// <param name="mealPool">The pool of available meal choices</param>
         /// <param name="numMeals">The number of meals in the menu</param>
-        public MenuBuilder(List<Recipe> mealPool, int numMeals) {
+        public MenuBuilder(List<Meal> mealPool, int numMeals) {
             pool = mealPool;
             random = new Random();
             GetNewRandomMenu( numMeals );
@@ -142,7 +142,7 @@ namespace MealPlan
         /// <summary>
         /// Gets the pool of available meal choices
         /// </summary>
-        public List<Recipe> MealPool
+        public List<Meal> MealPool
         {
             get { return pool; }
         }
@@ -164,7 +164,7 @@ namespace MealPlan
         /// </summary>
         /// <param name="index">The index to retrieve</param>
         /// <returns>The requested meal, or null if index is invalid</returns>
-        public Recipe GetMeal(int index) {
+        public Meal GetMeal(int index) {
             if (index < 0 || menu == null || index >= menu.Count) {
                 return null;
             }
@@ -176,7 +176,7 @@ namespace MealPlan
         /// </summary>
         /// <param name="i">The index to retrieve</param>
         /// <returns>The requested meal, or null if i is invalid</returns>
-        public Recipe this[int i]
+        public Meal this[int i]
         {
             get { return GetMeal( i ); }
         }
@@ -199,7 +199,7 @@ namespace MealPlan
         /// </summary>
         /// <param name="numMeals">The number of meals to include</param>
         public void GetNewRandomMenu(int numMeals) {
-            menu = new List<Recipe>(numMeals);
+            menu = new List<Meal>(numMeals);
             pins = new List<bool>(numMeals);
             for (int i = 0; i < numMeals; i++) {
                 int r = -1;
