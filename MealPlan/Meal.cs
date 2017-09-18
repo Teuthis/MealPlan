@@ -49,13 +49,13 @@ namespace MealPlan
         /// <param name="hasLeftovers">True if the meal usually produces useful leftovers, false otherwise</param>
         public Meal(string name, string recipeUrl, int cost, int prep, 
             int naughty, int heavy, bool hasLeftovers) {
-            this.name = name;
-            this.link = recipeUrl;
-            this.cost = cost;
-            this.prepTime = prep;
-            this.naughtiness = naughty;
-            this.heaviness = heavy;
-            this.leftovers = hasLeftovers;
+            Name = name;
+            RecipeLink = recipeUrl;
+            Cost = cost;
+            PreparationTime = prep;
+            Naughtiness = naughty;
+            Heaviness = heavy;
+            ProducesLeftovers = hasLeftovers;
         }
 
         /// <summary>
