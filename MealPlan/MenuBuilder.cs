@@ -14,7 +14,7 @@ namespace MealPlan
     /// <summary>
     /// Randomly generated menu container with some editing functions
     /// </summary>
-    class MenuBuilder {
+    public class MenuBuilder {
         
         // Collection of all known recipes/meals
         private List<Meal> pool;
