@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPlan", "MealPlan\MealPlan.csproj", "{3C8D5886-AF6D-41DE-9B7D-713BFDCBE7CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MealPlan_Tests", "MealPlan_Tests\MealPlan_Tests.csproj", "{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,24 @@ Global
 		{3C8D5886-AF6D-41DE-9B7D-713BFDCBE7CF}.Release|x86.ActiveCfg = Release|x86
 		{3C8D5886-AF6D-41DE-9B7D-713BFDCBE7CF}.Release|x86.Build.0 = Release|x86
 		{3C8D5886-AF6D-41DE-9B7D-713BFDCBE7CF}.Release|x86.Deploy.0 = Release|x86
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Debug|ARM.ActiveCfg = Debug|ARM
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Debug|ARM.Build.0 = Debug|ARM
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Debug|ARM.Deploy.0 = Debug|ARM
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Debug|x64.ActiveCfg = Debug|x64
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Debug|x64.Build.0 = Debug|x64
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Debug|x64.Deploy.0 = Debug|x64
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Debug|x86.ActiveCfg = Debug|x86
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Debug|x86.Build.0 = Debug|x86
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Debug|x86.Deploy.0 = Debug|x86
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Release|ARM.ActiveCfg = Release|ARM
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Release|ARM.Build.0 = Release|ARM
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Release|ARM.Deploy.0 = Release|ARM
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Release|x64.ActiveCfg = Release|x64
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Release|x64.Build.0 = Release|x64
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Release|x64.Deploy.0 = Release|x64
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Release|x86.ActiveCfg = Release|x86
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Release|x86.Build.0 = Release|x86
+		{B5DC307B-06A1-4FB3-9D37-D8B526724BC4}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

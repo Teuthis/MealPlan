@@ -14,7 +14,7 @@ namespace MealPlan
     /// Represents a roughly complete meal with a set of ratings describing
     /// cost, prep time, etc
     /// </summary>
-    class Meal
+    public class Meal
     {
         // The name of the meal
         private string name;
