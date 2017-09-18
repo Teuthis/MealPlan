@@ -206,11 +206,11 @@ namespace MealPlan
         /// Generates a random menu plan. Clears any prior menu.
         /// </summary>
         /// <param name="numMeals">The number of meals to include</param>
-        /// <exception cref="InvalidOperationException">The selection pool is null or empty.</exception>
+        /// <exception cref="InvalidOperationException">The selection pool is null, empty, or too small for the requested operation.</exception>
         public void GetNewRandomMenu(int numMeals) {
-            if (pool == null || pool.Count == 0) {
-                throw new InvalidOperationException( 
-                    "Meal pool is null or empty" );
+            if (pool == null || pool.Count == 0 || pool.Count < numMeals) {
+                throw new InvalidOperationException(
+                    "Meal pool is null, empty, or smaller than menu" );
             }
             menu = new List<Meal>(numMeals);
             pins = new List<bool>(numMeals);
@@ -227,12 +227,12 @@ namespace MealPlan
         /// <summary>
         /// Replaces all unpinned meals in the menu with new random selections.
         /// </summary>
-        /// <exception cref="InvalidOperationException">The selection pool is null or empty.</exception>
+        /// <exception cref="InvalidOperationException">The selection pool is null, empty, or too small for the requested operation.</exception>
         public void ReshuffleMenu() {
             if (menu == null) return;
-            if (pool == null || pool.Count == 0) {
+            if (pool == null || pool.Count == 0 || pool.Count < menu.Count) {
                 throw new InvalidOperationException(
-                    "Meal pool is null or empty" );
+                    "Meal pool is null, empty, or smaller than menu" );
             }
             for (int i = 0; i < menu.Count; i++) {
                 if (!pins[i]) {
@@ -265,11 +265,12 @@ namespace MealPlan
         /// <summary>
         /// Adds an additional random <c>Meal</c> to the menu
         /// </summary>
-        /// <exception cref="InvalidOperationException">The selection pool is null or empty.</exception>
+        /// <exception cref="InvalidOperationException">The selection pool is null, empty, or too small for the requested operation.</exception>
         public void AddAnotherMeal() {
-            if (pool == null || pool.Count == 0) {
+            if (pool == null || pool.Count == 0 
+                || pool.Count < (menu.Count + 1)) {
                 throw new InvalidOperationException(
-                    "Meal pool is null or empty" );
+                    "Meal pool is null, empty, or smaller than menu" );
             }
             int r = -1;
             while (r == -1 || menu.Contains( pool[r] )) {
