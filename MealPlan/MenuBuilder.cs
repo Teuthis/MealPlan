@@ -1,19 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MealPlan
 {
-    class MenuBuilder
-    {
-        List<Recipe> pool;
-        List<Recipe> menu;
-        List<bool> pins;
-        Random random;
+    /// <summary>
+    /// Randomly generated menu container with some editing functions
+    /// </summary>
+    class MenuBuilder {
+        
+        // Collection of all known recipes/meals
+        private List<Recipe> pool;
 
+        // The current menu
+        private List<Recipe> menu;
 
+        // Parallel collection for menu, allows specific elements
+        // to be pinned - pinned items are not replaced in a reshuffle
+        private List<bool> pins;
+
+        // Random number generator
+        private Random random;
+
+        /// <summary>
+        /// Constructs a new MenuBuilder object with an empty menu
+        /// </summary>
+        /// <param name="mealPool">The pool of available meal choices</param>
+        public MenuBuilder(List<Recipe> mealPool) {
+            pool = mealPool;
+            random = new Random();
+        }
+
+        /// <summary>
+        /// Constructs a new MenuBuilder object and generates a menu
+        /// </summary>
+        /// <param name="mealPool">The pool of available meal choices</param>
+        /// <param name="numMeals">The number of meals in the menu</param>
+        public MenuBuilder(List<Recipe> mealPool, int numMeals) {
+            pool = mealPool;
+            random = new Random();
+            GetNewRandomMenu( numMeals );
+        }
+
+        /// <summary>
+        /// Gets the average prep time rating for this collection of meals
+        /// </summary>
         public double AveragePrepTime
         {
             get
@@ -29,6 +59,9 @@ namespace MealPlan
             }
         }
 
+        /// <summary>
+        /// Gets the average cost rating for this collection of meals
+        /// </summary>
         public double AverageCost
         {
             get
@@ -44,6 +77,9 @@ namespace MealPlan
             }
         }
 
+        /// <summary>
+        /// Gets the average naughtiness rating for this collection of meals
+        /// </summary>
         public double AverageNaughtiness
         {
             get
@@ -59,6 +95,9 @@ namespace MealPlan
             }
         }
 
+        /// <summary>
+        /// Gets the average heaviness rating for this collection of meals
+        /// </summary>
         public double AverageHeaviness
         {
             get
@@ -74,10 +113,16 @@ namespace MealPlan
             }
         }
 
+        /// <summary>
+        /// Gets the total number of leftover-producing meals in the collection
+        /// </summary>
         public int LeftoversCount
         {
             get
             {
+                if (menu == null) {
+                    return 0;
+                }
                 int sum = 0;
                 foreach (var meal in menu) {
                     if (meal.ProducesLeftovers) sum++;
@@ -86,20 +131,73 @@ namespace MealPlan
             }
         }
 
+        /// <summary>
+        /// Gets the number of meals in the current menu
+        /// </summary>
+        public int Count
+        {
+            get { return menu?.Count ?? 0; }
+        }
+
+        /// <summary>
+        /// Gets the pool of available meal choices
+        /// </summary>
+        public List<Recipe> MealPool
+        {
+            get { return pool; }
+        }
+
+        /// <summary>
+        /// Identifies whether a particular meal is pinned
+        /// </summary>
+        /// <param name="index">The index of the meal to check</param>
+        /// <returns>True if pinned, false otherwise</returns>
         public bool IsPinned(int index) {
-            if (index < 0 || index >= pins.Count) {
+            if (index < 0 || pins == null || index >= pins.Count) {
                 return false;
             }
             return pins[index];
         }
 
+        /// <summary>
+        /// Accesses the meal at the specified index
+        /// </summary>
+        /// <param name="index">The index to retrieve</param>
+        /// <returns>The requested meal, or null if index is invalid</returns>
         public Recipe GetMeal(int index) {
-            if (index < 0 || index >= menu.Count) {
+            if (index < 0 || menu == null || index >= menu.Count) {
                 return null;
             }
             return menu[index];
         }
 
+        /// <summary>
+        /// Provides subscript access to the meals in the menu
+        /// </summary>
+        /// <param name="i">The index to retrieve</param>
+        /// <returns>The requested meal, or null if i is invalid</returns>
+        public Recipe this[int i]
+        {
+            get { return GetMeal( i ); }
+        }
+
+        /// <summary>
+        /// Pins or unpins the meal at the specified index
+        /// </summary>
+        /// <param name="index">The index of the meal to pin</param>
+        /// <returns>A bool indicating the new pinned state</returns>
+        public bool TogglePin(int index) {
+            if (index < 0 || pins == null || index >= pins.Count) {
+                return false;
+            }
+            pins[index] = !pins[index];
+            return pins[index];
+        }
+
+        /// <summary>
+        /// Generates a random menu plan. Clears any prior menu.
+        /// </summary>
+        /// <param name="numMeals">The number of meals to include</param>
         public void GetNewRandomMenu(int numMeals) {
             menu = new List<Recipe>(numMeals);
             pins = new List<bool>(numMeals);
@@ -113,7 +211,11 @@ namespace MealPlan
             }
         }
 
+        /// <summary>
+        /// Replaces all unpinned meals in the menu with new random selections.
+        /// </summary>
         public void ReshuffleMenu() {
+            if (menu == null) return;
             for (int i = 0; i < menu.Count; i++) {
                 if (!pins[i]) {
                     var previous = menu[i];
@@ -121,9 +223,37 @@ namespace MealPlan
                     while (r == -1 || menu.Contains( pool[r] )) {
                         r = random.Next( pool.Count - 1 );
                     }
-
+                    menu[i] = pool[r];
                 }
             }
+        }
+
+        /// <summary>
+        /// Replaces the specified meal with a new specified meal. Ignores pins
+        /// </summary>
+        /// <param name="indexToReplace">The index of the meal to replace</param>
+        /// <param name="newMeal">The pool index of the new meal</param>
+        public void ReplaceMeal(int indexToReplace, int newMeal) {
+            if (indexToReplace < 0 || menu == null 
+                || indexToReplace >= menu.Count) {
+                return;
+            }
+            if (newMeal < 0 || newMeal >= pool.Count) {
+                return;
+            }
+            menu[indexToReplace] = pool[newMeal];
+        }
+
+        /// <summary>
+        /// Adds an additional random meal to the menu
+        /// </summary>
+        public void AddAnotherMeal() {
+            int r = -1;
+            while (r == -1 || menu.Contains( pool[r] )) {
+                r = random.Next( pool.Count - 1 );
+            }
+            menu.Add( pool[r] );
+            pins.Add( false );
         }
     }
 }
