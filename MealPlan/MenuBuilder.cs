@@ -33,7 +33,12 @@ namespace MealPlan
         /// Constructs a new <c>MenuBuilder</c> object with an empty menu
         /// </summary>
         /// <param name="mealPool">The pool of available meal choices</param>
+        /// <exception cref="ArgumentNullException"><c>mealPool</c> is null.</exception>
         public MenuBuilder(List<Meal> mealPool) {
+            if (mealPool == null) {
+                throw new ArgumentNullException( "mealPool", 
+                    "Argument may not be null." );
+            }
             pool = mealPool;
             random = new Random();
         }
@@ -43,7 +48,12 @@ namespace MealPlan
         /// </summary>
         /// <param name="mealPool">The pool of available meal choices</param>
         /// <param name="numMeals">The number of meals in the menu</param>
+        /// <exception cref="ArgumentNullException"><c>mealPool</c> is null.</exception>
         public MenuBuilder(List<Meal> mealPool, int numMeals) {
+            if (mealPool == null) {
+                throw new ArgumentNullException( "mealPool",
+                    "Argument may not be null." );
+            }
             pool = mealPool;
             random = new Random();
             GetNewRandomMenu( numMeals );
