@@ -9,6 +9,7 @@ namespace MealPlan_Tests
     public class Meal_Test
     {
         [TestMethod]
+        [Timeout( 2 )]
         public void PrepValueHighClamp()
         {
             Meal meal = new Meal();
@@ -19,6 +20,7 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 2 )]
         public void PrepValueLowClamp() {
             Meal meal = new Meal();
             meal.PreparationTime = -3;
@@ -28,6 +30,7 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 2 )]
         public void PrepValueInRange() {
             Meal meal = new Meal();
             meal.PreparationTime = 1;
@@ -37,6 +40,7 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 2 )]
         public void CostValueHighClamp() {
             Meal meal = new Meal();
             meal.Cost = 43;
@@ -46,6 +50,7 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 2 )]
         public void CostValueLowClamp() {
             Meal meal = new Meal();
             meal.Cost = -3;
@@ -55,6 +60,7 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 2 )]
         public void CostValueInRange() {
             Meal meal = new Meal();
             meal.Cost = 1;
@@ -64,6 +70,7 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 2 )]
         public void NaughtyValueHighClamp() {
             Meal meal = new Meal();
             meal.Naughtiness = 43;
@@ -73,6 +80,7 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 2 )]
         public void NaughtyValueLowClamp() {
             Meal meal = new Meal();
             meal.Naughtiness = -3;
@@ -82,6 +90,7 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 2 )]
         public void NaughtyValueInRange() {
             Meal meal = new Meal();
             meal.Naughtiness = 1;
@@ -91,6 +100,7 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 2 )]
         public void HeavyValueHighClamp() {
             Meal meal = new Meal();
             meal.Heaviness = 43;
@@ -100,6 +110,7 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 2 )]
         public void HeavyValueLowClamp() {
             Meal meal = new Meal();
             meal.Heaviness = -3;
@@ -109,6 +120,7 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 2 )]
         public void HeavyValueInRange() {
             Meal meal = new Meal();
             meal.Heaviness = 1;
@@ -118,6 +130,7 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 2 )]
         public void ConstructorRangeCorrectness() {
             Meal meal = new Meal( "Test meal", "", -3, 43, 19, 0, false );
             int expectedCost = 1;

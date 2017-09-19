@@ -27,10 +27,55 @@ namespace MealPlan_Tests
         }
 
         [TestMethod]
+        [Timeout( 30 )]
         public void RandomMenuSimpleGeneration() {
             var mb = new MenuBuilder( GenerateTestPool( 15 ), 7 );
             int expected = 7;
             Assert.AreEqual( expected, mb.Count );
+        }
+
+        [TestMethod]
+        [Timeout( 30 )]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ThrowsOnEmptyPool() {
+            var mb = new MenuBuilder( GenerateTestPool( 0 ) );
+            mb.GetNewRandomMenu( 5 );
+        }
+
+        [TestMethod]
+        [Timeout( 30 )]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void ThrowsOnNullPool() {
+            var mb = new MenuBuilder( null );
+        }
+
+        [TestMethod]
+        [Timeout( 30 )]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ThrowsOnLargerThanPool() {
+            var mb = new MenuBuilder( GenerateTestPool( 5 ) );
+            mb.GetNewRandomMenu( 7 );
+        }
+
+        [TestMethod]
+        [Timeout( 30 )]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ThrowsOnAddWhenPoolSize() {
+            var mb = new MenuBuilder( GenerateTestPool( 5 ) );
+            mb.GetNewRandomMenu( 5 );
+            mb.AddAnotherMeal();
+        }
+
+        [TestMethod]
+        [Timeout( 30 )]
+        public void PoolMenuSameSize() {
+            var mb = new MenuBuilder( GenerateTestPool( 5 ) );
+            try {
+                mb.GetNewRandomMenu( 5 );
+            } catch {
+                Assert.Fail();
+            }
+            Assert.AreEqual( 1, 1 );
         }
     }
 }
