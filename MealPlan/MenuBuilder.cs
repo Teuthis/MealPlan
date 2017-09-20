@@ -227,7 +227,7 @@ namespace MealPlan
             for (int i = 0; i < numMeals; i++) {
                 int r = -1;
                 while (r == -1 || menu.Contains(pool[r])) {
-                    r = random.Next( pool.Count - 1 );
+                    r = random.Next( 0, pool.Count );
                 }
                 menu.Add( pool[r] );
                 pins.Add( false );
@@ -249,7 +249,7 @@ namespace MealPlan
                     var previous = menu[i];
                     int r = -1;
                     while (r == -1 || menu.Contains( pool[r] )) {
-                        r = random.Next( pool.Count - 1 );
+                        r = random.Next( pool.Count );
                     }
                     menu[i] = pool[r];
                 }
@@ -284,7 +284,7 @@ namespace MealPlan
             }
             int r = -1;
             while (r == -1 || menu.Contains( pool[r] )) {
-                r = random.Next( pool.Count - 1 );
+                r = random.Next( pool.Count );
             }
             menu.Add( pool[r] );
             pins.Add( false );
