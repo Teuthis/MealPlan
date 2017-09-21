@@ -212,7 +212,7 @@ namespace MealPlan
         /// <param name="numMeals">The number of meals to include</param>
         /// <exception cref="InvalidOperationException">The selection pool is null, empty, or too small for the requested operation.</exception>
         public void GetNewRandomMenu(int numMeals) {
-            if (pool == null || pool.Count == 0 || pool.Count < numMeals) {
+            if (pool?.Count < numMeals) {
                 throw new InvalidOperationException(
                     "Meal pool is null, empty, or smaller than menu" );
             }
@@ -234,7 +234,7 @@ namespace MealPlan
         /// <exception cref="InvalidOperationException">The selection pool is null, empty, or too small for the requested operation.</exception>
         public void ReshuffleMenu() {
             if (menu == null) return;
-            if (pool == null || pool.Count == 0 || pool.Count < menu.Count) {
+            if (pool?.Count < menu.Count) {
                 throw new InvalidOperationException(
                     "Meal pool is null, empty, or smaller than menu" );
             }
@@ -268,8 +268,7 @@ namespace MealPlan
         /// </summary>
         /// <exception cref="InvalidOperationException">The selection pool is null, empty, or too small for the requested operation.</exception>
         public void AddAnotherMeal() {
-            if (pool == null || pool.Count == 0 
-                || pool.Count < (menu.Count + 1)) {
+            if (pool?.Count < (menu.Count + 1)) {
                 throw new InvalidOperationException(
                     "Meal pool is null, empty, or smaller than menu" );
             }
