@@ -260,16 +260,13 @@ namespace MealPlan
         /// Replaces the specified <c>Meal</c> with a new specified <c>Meal</c>. Ignores pins
         /// </summary>
         /// <param name="indexToReplace">The index of the meal to replace</param>
-        /// <param name="newMeal">The pool index of the new meal</param>
-        public void ReplaceMeal(int indexToReplace, int newMeal) {
+        /// <param name="newMeal">The replacement <c>Meal</c></param>
+        public void ReplaceMeal(int indexToReplace, Meal newMeal) {
             if (indexToReplace < 0 || menu == null 
                 || indexToReplace >= menu.Count) {
                 return;
             }
-            if (newMeal < 0 || newMeal >= pool.Count) {
-                return;
-            }
-            menu[indexToReplace] = pool[newMeal];
+            menu[indexToReplace] = newMeal;
         }
 
         /// <summary>
